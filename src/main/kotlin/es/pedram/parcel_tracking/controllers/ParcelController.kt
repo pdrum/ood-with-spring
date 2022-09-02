@@ -1,5 +1,6 @@
 package es.pedram.parcel_tracking.controllers
 
+import es.pedram.parcel_tracking.domain.DistanceCalculationMethod
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
@@ -12,20 +13,18 @@ import org.springframework.web.bind.annotation.RestController
 
 class ParcelCreationInput(
     val name: String,
-    val location: Location,
-    val destination: Location,
+    val location: LocationPayload,
+    val destination: LocationPayload,
     val distanceCalculationMethod: DistanceCalculationMethod
 )
 
-enum class DistanceCalculationMethod{ FLIGHT_DISTANCE, OSM_DISTANCE }
-
-class Location(val lat: Double, val lng: Double)
+class LocationPayload(val lat: Double, val lng: Double)
 
 class ParcelOutputPayload(
     val id: Long,
     val name: String,
-    val location: Location,
-    val destination: Location,
+    val location: LocationPayload,
+    val destination: LocationPayload,
     val distanceToDestination: Double,
 )
 
@@ -48,15 +47,15 @@ class ParcelController {
             ParcelOutputPayload(
                 id = 1,
                 name = "monitor",
-                location = Location(0.0, 0.0),
-                destination = Location(1.0, 1.0),
+                location = LocationPayload(0.0, 0.0),
+                destination = LocationPayload(1.0, 1.0),
                 distanceToDestination = 1000.0
             ),
             ParcelOutputPayload(
                 id = 2,
                 name = "keyboard",
-                location = Location(0.0, 0.0),
-                destination = Location(1.0, 1.0),
+                location = LocationPayload(0.0, 0.0),
+                destination = LocationPayload(1.0, 1.0),
                 distanceToDestination = 1000.0
             )
         )
@@ -67,8 +66,8 @@ class ParcelController {
         return ParcelOutputPayload(
             id = id,
             name = "keyboard",
-            location = Location(0.0, 0.0),
-            destination = Location(1.0, 1.0),
+            location = LocationPayload(0.0, 0.0),
+            destination = LocationPayload(1.0, 1.0),
             distanceToDestination = 1000.0
         )
     }
@@ -78,12 +77,12 @@ class ParcelController {
     fun delete(@PathVariable("id") id: Long) {}
 
     @PatchMapping("/api/parcels/{id}")
-    fun updateLocation(@RequestBody location: Location): ParcelOutputPayload {
+    fun updateLocation(@RequestBody location: LocationPayload): ParcelOutputPayload {
         return ParcelOutputPayload(
             id = 2,
             name = "keyboard",
             location = location,
-            destination = Location(1.0, 1.0),
+            destination = LocationPayload(1.0, 1.0),
             distanceToDestination = 1000.0
         )
     }
