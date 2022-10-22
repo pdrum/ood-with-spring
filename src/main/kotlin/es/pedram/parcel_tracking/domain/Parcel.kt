@@ -1,7 +1,7 @@
 package es.pedram.parcel_tracking.domain
 
-class Parcel(
-    val id: Long,
+data class Parcel(
+    val id: Long?,
     val name: String,
     val location: Location,
     val destination: Location,
