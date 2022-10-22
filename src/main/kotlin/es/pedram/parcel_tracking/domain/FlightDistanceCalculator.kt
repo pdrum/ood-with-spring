@@ -5,6 +5,8 @@ import org.springframework.stereotype.Component
 
 @Component
 class FlightDistanceCalculator: DistanceCalculator {
+    override val calculationMethod = DistanceCalculationMethod.FLIGHT_DISTANCE
+
     override fun calculateDistanceInMeters(source: Location, destination: Location): Double {
         val R = 6371000
 

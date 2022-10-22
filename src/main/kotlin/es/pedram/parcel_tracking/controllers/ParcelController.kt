@@ -1,5 +1,6 @@
 package es.pedram.parcel_tracking.controllers
 
+import es.pedram.parcel_tracking.domain.DistanceCalculatorFactory
 import es.pedram.parcel_tracking.domain.FlightDistanceCalculator
 import es.pedram.parcel_tracking.domain.Location
 import es.pedram.parcel_tracking.domain.Parcel
@@ -25,7 +26,7 @@ interface ParcelRepository {
 @RestController
 class ParcelController(
     private val repository: ParcelRepository,
-    private val distanceCalculator: FlightDistanceCalculator,
+    private val distanceCalculatorFactory: DistanceCalculatorFactory,
 ) {
     @PostMapping("/api/parcels")
     fun create(@RequestBody payload: ParcelCreationRequestPayload): ParcelOutputPayload {
@@ -35,7 +36,7 @@ class ParcelController(
                 name = payload.name,
                 location = Location(payload.location.lat, payload.location.lng),
                 destination = Location(payload.destination.lat, payload.destination.lng),
-                distanceCalculator = distanceCalculator,
+                distanceCalculator = distanceCalculatorFactory.create(payload.distanceCalculationMethod),
             )
         )
         return mapToPayload(createdParcel)

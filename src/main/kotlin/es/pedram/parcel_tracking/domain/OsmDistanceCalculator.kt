@@ -8,6 +8,8 @@ interface OsmDistanceClient {
 
 @Component
 class OsmDistanceCalculator(private val osmDistanceClient: OsmDistanceClient): DistanceCalculator {
+    override val calculationMethod = DistanceCalculationMethod.OSM_DISTANCE
+
     override fun calculateDistanceInMeters(source: Location, destination: Location): Double {
         return osmDistanceClient.calculateDistanceInMeters(source, destination)
     }
