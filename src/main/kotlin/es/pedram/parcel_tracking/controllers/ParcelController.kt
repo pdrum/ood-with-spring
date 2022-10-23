@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
+import java.net.URI
 
 interface ParcelRepository {
     fun create(parcel: Parcel): Parcel
@@ -29,7 +30,7 @@ class ParcelController(
     private val distanceCalculatorFactory: DistanceCalculatorFactory,
 ) {
     @PostMapping("/api/parcels")
-    fun create(@RequestBody payload: ParcelCreationRequestPayload): ParcelOutputPayload {
+    fun create(@RequestBody payload: ParcelCreationRequestPayload): ResponseEntity<ParcelOutputPayload> {
         val createdParcel = repository.create(
             Parcel(
                 id = null,
@@ -39,7 +40,9 @@ class ParcelController(
                 distanceCalculator = distanceCalculatorFactory.create(payload.distanceCalculationMethod),
             )
         )
-        return mapToPayload(createdParcel)
+        return ResponseEntity
+            .created(URI("/api/parcels/${createdParcel.id}"))
+            .body(mapToPayload(createdParcel))
     }
 
     @GetMapping("/api/parcels")
