@@ -31,6 +31,8 @@ dependencies {
 	implementation("org.flywaydb:flyway-core:9.5.1")
 	runtimeOnly("com.h2database:h2")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("com.squareup.okhttp3:okhttp:4.0.1")
+	testImplementation("com.squareup.okhttp3:mockwebserver:4.0.1")
 	testRuntimeOnly("com.h2database:h2")
 }
 
