@@ -26,8 +26,7 @@ class ParcelEntity(
     var destinationLat: Double? = null,
     @Column(name = "destination_lng")
     var destinationLng: Double? = null,
-    @Column(name = "distance_to_destination")
-    var distanceToDestination: Double? = null,
+    @Column(name = "distance_calculation_method")
     @Enumerated(EnumType.STRING)
     var distanceCalculationMethod: DistanceCalculationMethod? = null,
 )

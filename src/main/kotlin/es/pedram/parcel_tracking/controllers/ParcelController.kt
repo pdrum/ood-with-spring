@@ -69,7 +69,7 @@ class ParcelController(
         id = parcel.id!!,
         name = parcel.name,
         location = LocationPayload(parcel.location.lat, parcel.location.lng),
-        destination = LocationPayload(parcel.location.lat, parcel.location.lng),
+        destination = LocationPayload(parcel.destination.lat, parcel.destination.lng),
         distanceToDestination = parcel.distanceToDestination
     )
 }

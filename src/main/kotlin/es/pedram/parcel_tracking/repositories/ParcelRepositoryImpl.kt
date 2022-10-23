@@ -49,7 +49,6 @@ class ParcelRepositoryImpl(
         locationLng = location.lng,
         destinationLat = destination.lat,
         destinationLng = destination.lng,
-        distanceToDestination = distanceToDestination,
         distanceCalculationMethod = distanceCalculator.calculationMethod,
     )
 }
